@@ -18,7 +18,7 @@
   <button type="submit">Search for keywords</button>
 </form>
 <ul>
-  <li th:each="Files Name ${filesName}" th:File Name="${fileName}"></li>
+  <li th:each="fileName : ${filesName}" th:text="${fileName}"></li>
 </ul>
 </body>
 </html>

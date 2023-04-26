@@ -10,13 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class SearchForKeywords {
-
+public class SearchForKeywordsController {
     @GetMapping("/searchKeywords")
-    public String searchKeywords(@RequestParam String query, Model model) {
+    public String searchKeywords(@RequestParam String keywordsQuery, Model model) {
         List<String> filesName = new ArrayList<>();
         try {
-            filesName=getQueriesFromDB(query);
+            filesName=getQueriesFromDB(keywordsQuery);
             model.addAttribute("filesName", filesName);
             return "index";
         } catch (SQLException e) {
@@ -35,10 +34,10 @@ public class SearchForKeywords {
         password = "mysecretpassword";
         conn = DriverManager.getConnection(url, username, password);
 
-        sql = "SELECT file_name FROM queriesTable WHERE query=?";
+        sql = "SELECT file_name FROM files_queries WHERE query=?";
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1, query);
-         result = statement.executeQuery();
+        result = statement.executeQuery();
 
         while (result.next()) {
             fileName = result.getString("file_name");
@@ -47,7 +46,5 @@ public class SearchForKeywords {
         conn.close();
 
         return filesName;
-
     }
-
 }

@@ -15,8 +15,6 @@ public class SearchController {
 
     @GetMapping("/search")
     public String search(@RequestParam String query, Model model)  {
-        // Perform search logic here
-       // model.addAttribute("query", query);
         try {
             insertQueryIntoDB(query);
             try {
