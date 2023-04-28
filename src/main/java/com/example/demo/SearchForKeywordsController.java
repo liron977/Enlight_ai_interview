@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class SearchForKeywordsController {
         ResultSet result;
         Connection conn;
 
-        url = "jdbc:postgresql://localhost:5432/postgres";
+        url = "jdbc:postgresql://localhost:5432/mydb";
         username = "postgres";
         password = "mysecretpassword";
         conn = DriverManager.getConnection(url, username, password);

@@ -1,6 +1,7 @@
 package com.example.demo;
 
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class SearchController {
         }
     }
     private void insertQueryIntoDB(String query) throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String url = "jdbc:postgresql://localhost:5432/mydb";
         String username = "postgres";
         String password = "mysecretpassword";
         Connection conn = DriverManager.getConnection(url, username, password);
@@ -38,13 +39,12 @@ public class SearchController {
         String sql = "INSERT INTO queriesTable (query) VALUES (?)";
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1, query);
-        int rows = statement.executeUpdate();
-        System.out.println(rows + " row(s) inserted");
+        statement.executeUpdate();
         conn.close();
 
     }
     public int getAmountOfQueriesFromDB() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String url = "jdbc:postgresql://localhost:5432/mydb";
         String username = "postgres";
         String password = "mysecretpassword";
         Connection conn = DriverManager.getConnection(url, username, password);
@@ -57,5 +57,11 @@ public class SearchController {
         conn.close();
 
         return count;
+    }
+    @GetMapping("/")
+    public String init(Model model) throws SQLException {
+        int amountOfQueries = getAmountOfQueriesFromDB();
+        model.addAttribute("queryCount", amountOfQueries);
+        return "index";
     }
 }

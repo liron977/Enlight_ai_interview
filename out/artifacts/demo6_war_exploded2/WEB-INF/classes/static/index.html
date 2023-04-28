@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Search</title>
+</head>
+<body>
+<h1>Search Part 1</h1>
+<p>There are currently <span th:text="${queryCount}"></span> queries in the database.</p>
+<form action="/search" method="GET">
+  <input type="text" name="query">
+  <button type="submit">Search</button>
+</form>
+<hr>
+<h1>Search Part 2</h1>
+<form action="/searchKeywords" method="GET">
+  <input type="text" name="keywordsQuery">
+  <button type="submit">Search for keywords</button>
+</form>
+<ul>
+  <li th:each="fileName : ${filesName}" th:text="${fileName}"></li>
+</ul>
+</body>
+</html>
